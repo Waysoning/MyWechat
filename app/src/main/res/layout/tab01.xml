@@ -10,6 +10,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_weight="1"
-        android:text="这是微信聊天界面！"
+        android:text="这是微信聊天界面！!"
         android:textSize="25sp" />
 </LinearLayout>
