@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
-    private Fragment mTab01 = new weixinFragment();
+    private Fragment mTab01 = new playerFragment();
     private Fragment mTab02 = new frdFragment();
     private Fragment mTab03 = new contactFragment();
     private Fragment mTab04 = new settingsFragment();
