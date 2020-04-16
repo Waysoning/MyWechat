@@ -7,3 +7,4 @@ This is a repository for homework of Android.
 - v0.0-ActivityResult 实现两个界面之间的切换及通信
 - v1.0-MyWeChat 实现微信的底部按钮切换
 - v2.0-MyRecyclerView  实现瀑布流
+- v3.0-MusicPlayer  实现音乐播放器
