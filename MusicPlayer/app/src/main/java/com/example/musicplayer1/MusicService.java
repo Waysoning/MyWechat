@@ -9,6 +9,7 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -23,6 +24,7 @@ public class MusicService extends Service {
     //0x11表示没有播放，0x12代表正在播放，0x13代表暂停
     int status=0x11;
     int current=0;
+
     public IBinder onBind(Intent intent) {
         return null;
     }
@@ -46,6 +48,7 @@ public class MusicService extends Service {
                     current=0;
                 }
                 Intent sendIntent = new Intent(MainActivity.UPDATE_ACTION);
+                sendIntent.putExtra("update",0x14);
                 sendIntent.putExtra("current",current);
                 //发送广播，将被Activity组件中的BroadcastReceiver接收
                 sendBroadcast(sendIntent);

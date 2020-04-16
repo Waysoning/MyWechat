@@ -87,7 +87,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             //获取来自receive中intent的curruent消息，代表正在播放的歌曲
             int current = intent.getIntExtra("current",-1);
             //如果状态为正在播放歌曲或暂停
-            if(current>=0&&(update == 0x12||update == 0x13))
+            if(current>=0&&(update == 0x12||update == 0x13||update==0x14))
             {
                 title.setText(titleStrs[current]);
                 author.setText(authorStrs[current]);
@@ -113,6 +113,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 case 0x13:
                     play.setImageResource(R.drawable.play);
                     status=0x13;
+                    break;
+                case 0x14:
                     break;
             }
 
