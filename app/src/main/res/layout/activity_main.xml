@@ -10,14 +10,8 @@
         android:id="@+id/id_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
         android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/tv_DBtest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
     </FrameLayout>
 
     <include layout="@layout/bottom" />

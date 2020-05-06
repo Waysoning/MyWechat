@@ -3,11 +3,13 @@ package com.example.example1.mywechat;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,26 +18,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AbsListView;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
-
-import com.example.example1.mywechat.crud.MyDBHelper;
-
-import java.util.ArrayList;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.ContactsContract.CommonDataKinds.StructuredName;
+import android.provider.ContactsContract.RawContacts.Data;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -56,6 +47,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ImageButton mImgFrd;
     private ImageButton mImgAddress;
     private ImageButton mImgSettings;
+    private ImageButton mImgAdd;
 
     //数据库相关变量定义
     public static StringBuilder result = new StringBuilder("程序所做的数据库操作为：\n");
@@ -96,6 +88,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mImgFrd=(ImageButton)findViewById(R.id.id_tab_frd_img);
         mImgAddress=(ImageButton)findViewById(R.id.id_tab_contact_img);
         mImgSettings=(ImageButton)findViewById(R.id.id_tab_settings_img);
+        mImgAdd=(ImageButton)findViewById(R.id.id_add_img);
     }
 
     private void initEvent(){
@@ -103,6 +96,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mTabFrd.setOnClickListener(this);
         mTabAddress.setOnClickListener(this);
         mTabSettings.setOnClickListener(this);
+        mImgAdd.setOnClickListener(this);
     }
 
     private void selectFragment(int i){
@@ -160,6 +154,51 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.id_tab_settings:
                 selectFragment(3);
+                break;
+            case R.id.id_add_img:
+                final View addDialog=getLayoutInflater().inflate(R.layout.item_contact_add,null);
+
+                new AlertDialog.Builder(MainActivity.this).setView(addDialog).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        EditText mname=(EditText)addDialog.findViewById(R.id.et_contact_name);
+                        EditText mphone=(EditText)addDialog.findViewById(R.id.et_contact_phone);
+                        final String name=mname.getText().toString();
+                        final String phone=mphone.getText().toString();
+                        // 创建一个空的ContentValues
+                        ContentValues values = new ContentValues();
+                        // 向RawContacts.CONTENT_URI执行一个空值插入
+                        // 目的是获取系统返回的rawContactId
+                        Uri rawContactUri = getContentResolver().insert(
+                                ContactsContract.RawContacts.CONTENT_URI, values);
+                        long rawContactId = ContentUris.parseId(rawContactUri);
+                        values.clear();
+                        values.put(Data.RAW_CONTACT_ID, rawContactId);
+                        // 设置内容类型
+                        values.put(Data.MIMETYPE, StructuredName.CONTENT_ITEM_TYPE);
+                        // 设置联系人名字
+                        values.put(StructuredName.GIVEN_NAME, name);
+                        // 向联系人URI添加联系人名字
+                        getContentResolver().insert(ContactsContract
+                                .Data.CONTENT_URI, values);
+                        values.clear();
+                        values.put(Data.RAW_CONTACT_ID, rawContactId);
+                        values.put(Data.MIMETYPE, Phone.CONTENT_ITEM_TYPE);
+                        // 设置联系人的电话号码
+                        values.put(Phone.NUMBER, phone);
+                        // 设置电话类型
+                        values.put(Phone.TYPE, Phone.TYPE_MOBILE);
+                        // 向联系人电话号码URI添加电话号码
+                        getContentResolver().insert(ContactsContract
+                                .Data.CONTENT_URI, values);
+                        values.clear();
+                        contactFragment a = new contactFragment();
+
+                        selectFragment(2);
+                        Toast.makeText(MainActivity.this, "联系人数据添加成功",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }).show();
                 break;
             default:
                 break;
