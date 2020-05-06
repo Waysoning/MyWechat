@@ -1,15 +1,41 @@
 package com.example.example1.mywechat;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AbsListView;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+
+import com.example.example1.mywechat.crud.MyDBHelper;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -31,6 +57,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ImageButton mImgAddress;
     private ImageButton mImgSettings;
 
+    //数据库相关变量定义
+    public static StringBuilder result = new StringBuilder("程序所做的数据库操作为：\n");
+    SQLiteDatabase db;
+    Cursor cursor;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +72,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         initView();
         initFragment();
         initEvent();
+        checkPermission();
         selectFragment(0);
     }
 
@@ -139,4 +172,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mImgAddress.setImageResource(R.drawable.tab_address_normal);
         mImgSettings.setImageResource(R.drawable.tab_settings_normal);
     }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public void checkPermission(){
+        int hasWriteContactsPermisson = checkSelfPermission(
+                android.Manifest.permission.READ_CONTACTS);
+        if(hasWriteContactsPermisson != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(new String[]
+                            {Manifest.permission.WRITE_CONTACTS},
+                    1);
+
+            return;
+        }
+    }
+
 }
