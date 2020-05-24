@@ -10,3 +10,4 @@ This is a repository for homework of Android.
 - v3.0-MusicPlayer  实现音乐播放器
 - v4.0-DAO 实现数据库增删查改
 - v4.1-Contacts  实现联系人功能
+- BDMap-调用百度地图API实现定位功能
