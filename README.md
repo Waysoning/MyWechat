@@ -1,3 +1,3 @@
-# v4.1-Contacts 实现联系人功能
+# v4.1-BlueTooth 实现蓝牙通信 完成聊天功能
 
-> [参考Blog](https://blog.csdn.net/Waysoning/article/details/105959043)
+> [参考Blog](https://blog.csdn.net/Waysoning/article/details/106276317)
