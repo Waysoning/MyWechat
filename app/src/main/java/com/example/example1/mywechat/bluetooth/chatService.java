@@ -22,7 +22,7 @@ public class chatService {
     // UUID：通用唯一识别码,是一个128位长的数字，一般用十六进制表示
     //算法的核心思想是结合机器的网卡、当地时间、一个随机数来生成
     //在创建蓝牙连接
-    private static final UUID MY_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
+    private static final UUID MY_UUID = UUID.fromString("ac46d346-6d97-4b24-a7be-75bfde326f6b");
     private final BluetoothAdapter mAdapter;
     private final Handler mHandler;
     private AcceptThread mAcceptThread;
