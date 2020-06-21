@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <TextView
+        android:id="@+id/edit_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="when to finish"
+        android:textSize="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        />
+
+
+    <EditText
+        android:id="@+id/edit_event"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:hint="event"
+        android:layout_marginTop="6dp"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textSize="40dp"
+        android:layout_gravity="center"
+        />
+
+
+    <EditText
+        android:id="@+id/rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="请输入完成进度"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:textSize="40dp"
+            />
+
+
+    <Button
+        android:id="@+id/editpro"
+        android:layout_width="122dp"
+        android:layout_height="122dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/ic_change" />
+
+</LinearLayout>
